@@ -3,7 +3,7 @@
 const url = require('url');
 const assert = require('assert');
 const GitHub = require('github');
-const package = require('../package.json');
+const package = require('../../package.json');
 
 
 const github = new GitHub();
