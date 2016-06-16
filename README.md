@@ -5,8 +5,8 @@ requests that were merged thereafter. As a result you get a nicely looking relea
 
 -----
 
- - Implement initial version #1 (by @runk)
- - Fix path #2 (by @runk)
+ - initial version #1 (by @runk)
+ - fix path, update readme #2 (by @runk)
 
 -----
 
