@@ -1,0 +1,25 @@
+{
+  "name": "github-publish-release",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "github-publish-release": "./bin/github-publish-release"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmdigital/github-publish-release.git"
+  },
+  "author": "Dmitry Shirokov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ahmdigital/github-publish-release/issues"
+  },
+  "homepage": "https://github.com/ahmdigital/github-publish-release#readme",
+  "dependencies": {
+    "github": "^1.1.2"
+  }
+}
