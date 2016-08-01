@@ -31,11 +31,11 @@ github.repos.getLatestRelease({ user, repo }, (err, latestRelease) => {
     if (err.code === 404) {
       latestRelease = { name: 'unknown', created_at: new Date('1970-01-01') };
     } else {
-      checkErr()
+      checkErr(err);
     }
   }
 
-  console.log('Latest release: %s', latestRelease.name)
+  console.log('Latest release: %s', latestRelease.name);
 
   github.pullRequests.getAll({ user, repo, state: 'closed', sort: 'updated', direction: 'desc' }, (err, prs) => {
     checkErr(err);
