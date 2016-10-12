@@ -11,9 +11,7 @@ const github = new GitHub();
 assert(process.env.GITHUB_OAUTH_TOKEN, 'GITHUB_OAUTH_TOKEN env variable should contain your personal access token');
 github.authenticate({ type: 'oauth', token: process.env.GITHUB_OAUTH_TOKEN });
 
-const user = repository(package).user;
-const repo = repository(package).repo;
-
+const { user, repo } = repository(package);
 
 const checkErr = (err) => {
   if (err) {
