@@ -7,7 +7,7 @@
     "github-publish-release": "./bin/github-publish-release"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive test"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ahmdigital/github-publish-release#readme",
   "dependencies": {
-    "github": "^1.1.2"
+    "github": "^1.1.2",
+    "mocha": "^3.1.0"
   }
 }

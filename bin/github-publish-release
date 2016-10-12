@@ -3,6 +3,7 @@
 const url = require('url');
 const assert = require('assert');
 const GitHub = require('github');
+const repository = require('../lib/repository');
 const package = require('../../../package.json');
 
 
@@ -10,13 +11,8 @@ const github = new GitHub();
 assert(process.env.GITHUB_OAUTH_TOKEN, 'GITHUB_OAUTH_TOKEN env variable should contain your personal access token');
 github.authenticate({ type: 'oauth', token: process.env.GITHUB_OAUTH_TOKEN });
 
-var repoUrl = package.repository.url || package.homepage;
-assert(repoUrl, 'Cannot detect repository name. Either `package.repository.url` or `package.homepage` should be set');
-
-var repositoryPath = url.parse(repoUrl).path.replace(/\.git$/, '');
-var repositoryParsed = repositoryPath.match(/\/(\S+)\/(\S+)/);
-const user = repositoryParsed[1];
-const repo = repositoryParsed[2];
+const user = repository(package).user;
+const repo = repository(package).repo;
 
 
 const checkErr = (err) => {
