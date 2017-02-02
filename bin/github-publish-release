@@ -36,7 +36,7 @@ github.repos.getLatestRelease({ user, repo }, (err, latestRelease) => {
 
     const name = `v${package.version}`;
     const body = prs
-      .filter((item) => item.merged_at > latestRelease.created_at)
+      .filter((item) => item.merged_at > latestRelease.published_at)
       .sort((a, b) => b.title.localeCompare(a.title))
       .map((item) => `- ${item.title} #${item.number} (by @${item.user.login})`)
       .join('\n');
