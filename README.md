@@ -19,7 +19,8 @@ configure environment variable `GITHUB_OAUTH_TOKEN` with this token. That's it.
 
 #### Expected release flow
 
-1. Bump version in `package.json`, either manually or via `npm version minor` etc.
+1. Make a commit with message including **[major]**, **[minor]** or **[patch]**.
+```git commit -a -m '[major]: Do some breaking changes'```
 2. Run `github-publish-release` script.
 3. Push local changes (that occur in p. 1) to github with `git push --follow-tags` or similar.
 4. Publish module with `npm publish`.
