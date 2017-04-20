@@ -2,11 +2,11 @@
 
 const url = require('url');
 const assert = require('assert');
-const { exec } = require('child_process');
-const commitAnalyzer = require('../lib/commit-analyzer');
 const GitHub = require('github');
-const repository = require('../lib/repository');
+const cmd = require('../lib/cmd');
+const commitAnalyzer = require('../lib/commit-analyzer');
 const package = require('../../../package.json');
+const repository = require('../lib/repository');
 
 const checkErr = (err) => {
   if (err) {
@@ -71,13 +71,6 @@ commitAnalyzer((err, versionType) => {
     return;
   }
   console.log(`Making ${versionType} version`);
-  exec(`npm version ${versionType}`, (error, stdout, stderr) => {
-    if (error !== null){
-      console.error(error);
-      console.error(stderr);
-      process.exit(1);
-    }
-    publishRelease();
-  });
+  cmd(`npm version ${versionType}`, () => { publishRelease(); });
 });
 
