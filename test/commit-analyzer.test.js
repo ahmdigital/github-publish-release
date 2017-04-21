@@ -27,6 +27,7 @@ describe('commit-analyzer', () => {
     major: 'major',
     minor: 'minor',
     patch: 'patch',
+    other: 'minor',
     '': 'minor',
   }, (resultType, commitType) => {
     it(`should call cb with ${resultType}`, (done) => {
