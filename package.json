@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": {
     "github-publish-release": "./bin/github-publish-release",
-    "analyze-commits": "./bin/analyze-commits",
+    "analyze-commits": "./bin/analyze-commits"
   },
   "scripts": {
     "test": "mocha --recursive test"
