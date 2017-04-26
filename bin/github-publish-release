@@ -32,7 +32,7 @@ function publishRelease() {
     }
 
     console.log('Latest release: %s', latestRelease.name);
-
+    return;
     github.pullRequests.getAll({ user, repo, state: 'closed', sort: 'updated', direction: 'desc' }, (err, prs) => {
       checkErr(err);
 
