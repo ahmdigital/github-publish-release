@@ -3,12 +3,12 @@
 const assert = require('assert');
 const GitHub = require('github');
 const repository = require('../lib/repository');
-const pkg = require('../../../package.json');
+const pkg = require(`${process.cwd()}/package.json`);
 
 const checkErr = (err) => {
-    if (err) {
-      console.error(err.toJSON());
-      process.exit(1);
+  if (err) {
+    console.error(err.toJSON());
+    process.exit(1);
   }
 };
 
@@ -34,9 +34,9 @@ github.repos.getLatestRelease({ user, repo }, (err, latestRelease) => {
 
     const name = `v${pkg.version}`;
     const body = prs
-      .filter((item) => item.merged_at > latestRelease.published_at)
+      .filter(item => item.merged_at > latestRelease.published_at)
       .sort((a, b) => b.title.localeCompare(a.title))
-      .map((item) => `- ${item.title} #${item.number} (by @${item.user.login})`)
+      .map(item => `- ${item.title} #${item.number} (by @${item.user.login})`)
       .join('\n');
 
     console.log('Publishing release: %s', name);
