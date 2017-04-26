@@ -1,74 +1,60 @@
 #!/usr/bin/env node
 
-const url = require('url');
 const assert = require('assert');
 const GitHub = require('github');
-const cmd = require('../lib/cmd');
-const { getVersionType } = require('../lib/commit-analyzer');
 const repository = require('../lib/repository');
+const pkg = require('../../../package.json');
 
 const checkErr = (err) => {
-  if (err) {
-    console.error(err.toJSON());
-    process.exit(1);
+    if (err) {
+      console.error(err.toJSON());
+      process.exit(1);
   }
 };
 
-function publishRelease() {
-  const package = require('../../../package.json');
-  const github = new GitHub();
-  assert(process.env.GITHUB_OAUTH_TOKEN, 'GITHUB_OAUTH_TOKEN env variable should contain your personal access token');
-  github.authenticate({ type: 'oauth', token: process.env.GITHUB_OAUTH_TOKEN });
+const github = new GitHub();
+assert(process.env.GITHUB_OAUTH_TOKEN, 'GITHUB_OAUTH_TOKEN env variable should contain your personal access token');
+github.authenticate({ type: 'oauth', token: process.env.GITHUB_OAUTH_TOKEN });
 
-  const { user, repo } = repository(package);
+const { user, repo } = repository(pkg);
 
-  github.repos.getLatestRelease({ user, repo }, (err, latestRelease) => {
-    if (err) {
-      if (err.code === 404) {
-        latestRelease = { name: 'unknown', created_at: new Date('1970-01-01') };
-      } else {
-        checkErr(err);
-      }
-    }
-
-    console.log('Latest release: %s', latestRelease.name);
-    return;
-    github.pullRequests.getAll({ user, repo, state: 'closed', sort: 'updated', direction: 'desc' }, (err, prs) => {
+github.repos.getLatestRelease({ user, repo }, (err, latestRelease) => {
+  if (err) {
+    if (err.code === 404) {
+      latestRelease = { name: 'unknown', created_at: new Date('1970-01-01') };
+    } else {
       checkErr(err);
+    }
+  }
 
-      const name = `v${package.version}`;
-      const body = prs
-        .filter((item) => item.merged_at > latestRelease.published_at)
-        .sort((a, b) => b.title.localeCompare(a.title))
-        .map((item) => `- ${item.title} #${item.number} (by @${item.user.login})`)
-        .join('\n');
+  console.log('Latest release: %s', latestRelease.name);
 
-      console.log('Publishing release: %s', name);
-      console.log(body);
+  github.pullRequests.getAll({ user, repo, state: 'closed', sort: 'updated', direction: 'desc' }, (err, prs) => {
+    checkErr(err);
 
-      github.repos.createRelease({
-        user,
-        repo,
-        tag_name: name,
-        target_commitish: 'master',
-        name,
-        body,
-        draft: false,
-        prerelease: false,
-      }, (err) => {
-        checkErr(err);
-        process.exit(0);
-      });
+    const name = `v${pkg.version}`;
+    const body = prs
+      .filter((item) => item.merged_at > latestRelease.published_at)
+      .sort((a, b) => b.title.localeCompare(a.title))
+      .map((item) => `- ${item.title} #${item.number} (by @${item.user.login})`)
+      .join('\n');
+
+    console.log('Publishing release: %s', name);
+    console.log(body);
+
+    github.repos.createRelease({
+      user,
+      repo,
+      tag_name: name,
+      target_commitish: 'master',
+      name,
+      body,
+      draft: false,
+      prerelease: false,
+    }, (err) => {
+      checkErr(err);
+      process.exit(0);
     });
   });
-}
-
-getVersionType((err, versionType) => {
-  if (err) {
-    // No need to reteurn process.exit(1) since it's normal to have no changes
-    console.log('Commit analyzer error: ', err.message);
-    return;
-  }
-  console.log(`Making ${versionType} version`);
-  cmd(`npm version ${versionType}`, publishRelease);
 });
+
