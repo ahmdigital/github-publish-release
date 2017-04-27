@@ -27,8 +27,8 @@ describe('commit-analyzer', () => {
     major: 'major',
     minor: 'minor',
     patch: 'patch',
-    other: 'minor',
-    '': 'minor',
+    other: null,
+    '': null,
   }, (resultType, commitType) => {
     it(`should call cb with ${resultType}`, (done) => {
       stubGit(commitType);
