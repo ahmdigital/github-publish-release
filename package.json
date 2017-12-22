@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "bin": {
+    "github-comment-pull-request": "./bin/github-comment-pull-request",
+    "github-get-pull-request": "./bin/github-get-pull-request",
     "github-publish-release": "./bin/github-publish-release",
     "analyze-commits": "./bin/analyze-commits"
   },
@@ -21,7 +23,7 @@
   },
   "homepage": "https://github.com/ahmdigital/github-publish-release#readme",
   "dependencies": {
-    "github": "^1.1.2",
+    "github": "^13.0.1",
     "lodash": "^4.17.4",
     "mocha": "^3.1.0",
     "sinon": "^2.1.0"
