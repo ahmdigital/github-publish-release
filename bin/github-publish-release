@@ -16,9 +16,9 @@ const github = new GitHub();
 assert(process.env.GITHUB_OAUTH_TOKEN, 'GITHUB_OAUTH_TOKEN env variable should contain your personal access token');
 github.authenticate({ type: 'oauth', token: process.env.GITHUB_OAUTH_TOKEN });
 
-const { user, repo } = repository(pkg);
+const { user: owner, repo } = repository(pkg);
 
-github.repos.getLatestRelease({ user, repo }, (err, latestRelease) => {
+github.repos.getLatestRelease({ owner, repo }, (err, { data: latestRelease }) => {
   if (err) {
     if (err.code === 404) {
       latestRelease = { name: 'unknown', created_at: new Date('1970-01-01') };
@@ -29,7 +29,7 @@ github.repos.getLatestRelease({ user, repo }, (err, latestRelease) => {
 
   console.log('Latest release: %s', latestRelease.name);
 
-  github.pullRequests.getAll({ user, repo, state: 'closed', sort: 'updated', direction: 'desc' }, (err, prs) => {
+  github.pullRequests.getAll({ owner, repo, state: 'closed', sort: 'updated', direction: 'desc' }, (err, { data: prs }) => {
     checkErr(err);
 
     const name = `v${pkg.version}`;
@@ -43,7 +43,7 @@ github.repos.getLatestRelease({ user, repo }, (err, latestRelease) => {
     console.log(body);
 
     github.repos.createRelease({
-      user,
+      owner,
       repo,
       tag_name: name,
       target_commitish: 'master',
