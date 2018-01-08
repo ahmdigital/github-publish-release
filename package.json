@@ -1,9 +1,10 @@
 {
   "name": "github-publish-release",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "",
   "main": "index.js",
   "bin": {
+    "github-comment-head-pr": "./bin/github-comment-head-pr",
     "github-comment-pull-request": "./bin/github-comment-pull-request",
     "github-get-pull-request": "./bin/github-get-pull-request",
     "github-publish-release": "./bin/github-publish-release",
