@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "github-comment-head-pr": "./bin/github-comment-head-pr",
+    "github-comment-ci-pr": "./bin/github-comment-ci-pr",
     "github-comment-pull-request": "./bin/github-comment-pull-request",
     "github-get-pull-request": "./bin/github-get-pull-request",
     "github-publish-release": "./bin/github-publish-release",
