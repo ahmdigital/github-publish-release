@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "config:base",
+    ":automergeLinters"
+  ],
+  "commitMessagePrefix": "[patch]",
+  "schedule": ["after 6pm and before 8am on every weekday", "every weekend"],
+  "timezone": "Australia/Melbourne",
+  "updateNotScheduled": false
+}
