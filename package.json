@@ -29,6 +29,6 @@
   },
   "devDependencies": {
     "mocha": "3.5.3",
-    "sinon": "2.4.1"
+    "sinon": "6.1.5"
   }
 }
