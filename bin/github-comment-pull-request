@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const assert = require('assert');
-const GitHub = require('github');
+const GitHub = require('@octokit/rest');
 const repository = require('../lib/repository');
 const pkg = require(`${process.cwd()}/package.json`);
 
