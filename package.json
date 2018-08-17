@@ -24,11 +24,11 @@
   },
   "homepage": "https://github.com/ahmdigital/github-publish-release#readme",
   "dependencies": {
-    "github": "^13.1.1",
+    "@octokit/rest": "^15.10.0",
     "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "mocha": "3.5.3",
-    "sinon": "2.4.1"
+    "mocha": "^5.2.0",
+    "sinon": "^6.1.5"
   }
 }
