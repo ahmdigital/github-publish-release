@@ -1,6 +1,6 @@
 {
   "name": "github-publish-release",
-  "version": "4.2.1",
+  "version": "5.0.0",
   "description": "",
   "main": "index.js",
   "bin": {
