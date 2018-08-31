@@ -28,7 +28,7 @@
     "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "mocha": "^5.2.0",
-    "sinon": "^6.1.5"
+    "mocha": "5.2.0",
+    "sinon": "6.1.5"
   }
 }
