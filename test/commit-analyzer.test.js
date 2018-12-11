@@ -1,10 +1,10 @@
-const _ = require("lodash");
-const assert = require("assert");
-const sinon = require("sinon");
+const _ = require('lodash');
+const assert = require('assert');
+const sinon = require('sinon');
 
-const commitAnalyzer = require("../lib/commit-analyzer");
+const commitAnalyzer = require('../lib/commit-analyzer');
 
-describe("commit-analyzer", () => {
+describe('commit-analyzer', () => {
   let sandbox;
 
   const stubGit = commitType => {
@@ -13,10 +13,8 @@ describe("commit-analyzer", () => {
       83ce07a Extract cmd
       94df78c [${commitType}]Update README.md
       0f23f08 Update README.md`;
-    sandbox
-      .stub(commitAnalyzer, "getCommitHistory")
-      .callsFake((commitRange, cb) => cb(commitHistory));
-    sandbox.stub(commitAnalyzer, "getLastTag").callsFake(cb => cb("1.2.3"));
+    sandbox.stub(commitAnalyzer, 'getCommitHistory').callsFake((commitRange, cb) => cb(commitHistory));
+    sandbox.stub(commitAnalyzer, 'getLastTag').callsFake(cb => cb('1.2.3'));
   };
 
   beforeEach(() => {
@@ -28,11 +26,11 @@ describe("commit-analyzer", () => {
   });
   _.forOwn(
     {
-      "": null,
-      major: "major",
-      minor: "minor",
+      '': null,
+      major: 'major',
+      minor: 'minor',
       other: null,
-      patch: "patch"
+      patch: 'patch',
     },
     (resultType, commitType) => {
       it(`should call cb with ${resultType}`, done => {
