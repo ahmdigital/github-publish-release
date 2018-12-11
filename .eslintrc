@@ -1,14 +1,6 @@
 {
-  "env": {
-    "node": true,
-    "mocha": true,
-  },
-  "extends": "airbnb-base",
+  "extends": "@ahmdigital",
   "rules": {
-    "id-length": [2, {"min": 2, "properties": "never", "exceptions": ["_", "i", "j"]}],
-    "indent": [2, 2, {"SwitchCase": 1}],
-    "max-len": [2, 120],
-    "no-shadow": [2, { "allow": ["cb", "err", "done", "resolve", "reject"] }],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+    "sort-keys": "error"
   }
 }
