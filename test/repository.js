@@ -1,8 +1,9 @@
 const assert = require('assert');
+
 const repository = require('../lib/repository');
 
 describe('repository', () => {
-  const expected = { user: 'foo', repo: 'bar' };
+  const expected = { repo: 'bar', user: 'foo' };
 
   it('should work when package.repository is defined and protocol is http(s)', () => {
     assert.deepEqual(repository({ repository: { url: 'https://github.com/foo/bar.git' } }), expected);
@@ -20,7 +21,9 @@ describe('repository', () => {
   });
 
   it('should work with dashed in repo name', () => {
-    assert.deepEqual(repository({ repository: { url: 'https://github.com/foo/bar-baz.git' } }),
-      { user: 'foo', repo: 'bar-baz' });
+    assert.deepEqual(repository({ repository: { url: 'https://github.com/foo/bar-baz.git' } }), {
+      repo: 'bar-baz',
+      user: 'foo',
+    });
   });
 });
