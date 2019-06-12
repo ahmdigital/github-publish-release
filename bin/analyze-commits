@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+console.log(process.argv);
+
 const { getVersionType } = require('../lib/commit-analyzer');
 
 getVersionType((err, versionType) => {
