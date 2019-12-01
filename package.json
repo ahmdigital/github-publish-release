@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/ahmdigital/github-publish-release#readme",
   "dependencies": {
-    "@octokit/rest": "^15.10.0",
+    "@octokit/rest": "^16.0.0",
     "lodash": "^4.17.10"
   },
   "devDependencies": {
