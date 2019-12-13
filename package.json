@@ -31,6 +31,6 @@
   "devDependencies": {
     "@ahmdigital/eslint-config": "3.0.19",
     "jest": "24.9.0",
-    "sinon": "6.3.5"
+    "sinon": "7.5.0"
   }
 }
