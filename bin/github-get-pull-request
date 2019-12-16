@@ -23,9 +23,7 @@ const { user: owner, repo } = repository(pkg);
 github.pullRequests
   .getAll({ owner, repo })
   .then(({ data }) => {
-    const { number } = _(data)
-      .filter({ head: { sha: COMMIT_SHA } })
-      .head();
+    const { number } = _.find(data, { head: { sha: COMMIT_SHA } });
     if (!number) {
       throw 'no results';
     }

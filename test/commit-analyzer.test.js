@@ -31,14 +31,13 @@ _.forOwn(
     patch: 'patch',
   },
   (resultType, commitType) => {
-    it(`should call cb with ${resultType}`, () => {
-      return new Promise(done => {
+    it(`should call cb with ${resultType}`, () =>
+      new Promise(done => {
         stubGit(commitType);
         commitAnalyzer.getVersionType((err, versionType) => {
           expect(versionType).toEqual(resultType);
           done();
         });
-      });
-    });
+      }));
   },
 );
