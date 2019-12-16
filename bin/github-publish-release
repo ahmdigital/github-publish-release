@@ -2,10 +2,12 @@
 
 const assert = require('assert');
 const GitHub = require('@octokit/rest');
+
 const repository = require('../lib/repository');
+
 const pkg = require(`${process.cwd()}/package.json`);
 
-const checkErr = (err) => {
+const checkErr = err => {
   if (err) {
     console.error(err.toJSON());
     process.exit(1);
@@ -29,32 +31,37 @@ github.repos.getLatestRelease({ owner, repo }, (err, { data: latestRelease }) =>
 
   console.log('Latest release: %s', latestRelease.name);
 
-  github.pullRequests.getAll({ owner, repo, state: 'closed', sort: 'updated', direction: 'desc' }, (err, { data: prs }) => {
-    checkErr(err);
-
-    const name = `v${pkg.version}`;
-    const body = prs
-      .filter(item => item.merged_at > latestRelease.published_at)
-      .sort((a, b) => b.title.localeCompare(a.title))
-      .map(item => `- ${item.title} #${item.number} (by @${item.user.login})`)
-      .join('\n');
-
-    console.log('Publishing release: %s', name);
-    console.log(body);
-
-    github.repos.createRelease({
-      owner,
-      repo,
-      tag_name: name,
-      target_commitish: 'master',
-      name,
-      body,
-      draft: false,
-      prerelease: false,
-    }, (err) => {
+  github.pullRequests.getAll(
+    { owner, repo, state: 'closed', sort: 'updated', direction: 'desc' },
+    (err, { data: prs }) => {
       checkErr(err);
-      process.exit(0);
-    });
-  });
-});
 
+      const name = `v${pkg.version}`;
+      const body = prs
+        .filter(item => item.merged_at > latestRelease.published_at)
+        .sort((a, b) => b.title.localeCompare(a.title))
+        .map(item => `- ${item.title} #${item.number} (by @${item.user.login})`)
+        .join('\n');
+
+      console.log('Publishing release: %s', name);
+      console.log(body);
+
+      github.repos.createRelease(
+        {
+          owner,
+          repo,
+          tag_name: name,
+          target_commitish: 'master',
+          name,
+          body,
+          draft: false,
+          prerelease: false,
+        },
+        err => {
+          checkErr(err);
+          process.exit(0);
+        },
+      );
+    },
+  );
+});

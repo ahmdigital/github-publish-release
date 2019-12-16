@@ -25,12 +25,17 @@
   },
   "homepage": "https://github.com/ahmdigital/github-publish-release#readme",
   "dependencies": {
-    "@octokit/rest": "^15.10.0",
-    "lodash": "^4.17.10"
+    "@octokit/rest": "^16.35.2",
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@ahmdigital/eslint-config": "3.0.19",
+    "@ahmdigital/eslint-config": "3.0.27",
     "jest": "24.9.0",
-    "sinon": "6.3.5"
+    "sinon": "7.5.0"
+  },
+  "renovate": {
+    "extends": [
+      "@ahmdigital"
+    ]
   }
 }
