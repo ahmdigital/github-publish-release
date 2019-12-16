@@ -29,7 +29,7 @@
     "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "@ahmdigital/eslint-config": "3.0.19",
+    "@ahmdigital/eslint-config": "3.0.27",
     "jest": "24.9.0",
     "sinon": "6.3.5"
   }
