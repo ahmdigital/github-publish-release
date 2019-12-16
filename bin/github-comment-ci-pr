@@ -8,4 +8,3 @@ if [ "$?" -ne 0 ] ; then
 fi
 echo "Commenting $TARGET_PR"
 github-comment-pull-request $TARGET_PR "$2"
-
