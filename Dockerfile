@@ -1,14 +1,12 @@
-FROM node:12.14.0
+FROM node:lts
 
-RUN mkdir -p /var/app
-WORKDIR /var/app
+WORKDIR /root/app
 
-COPY .eslintrc /var/app
-COPY package.json /var/app
-COPY package-lock.json /var/app
+RUN npm i -g npm@latest
+COPY package.json package-lock.json ./
+RUN npm ci --quiet --no-optional && npm cache clean --force
 
-RUN npm install
-
-COPY bin /var/app/bin
-COPY test /var/app/test
-COPY lib /var/app/lib
+COPY .eslintrc ./
+COPY bin ./bin
+COPY test ./test
+COPY lib ./lib
