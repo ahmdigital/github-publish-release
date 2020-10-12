@@ -1,5 +1,5 @@
-content-model-graph:
+build-service:
   build:
-    image: content-model-graph
+    image: github-publish-release
     dockerfile: Dockerfile
   cached: true
