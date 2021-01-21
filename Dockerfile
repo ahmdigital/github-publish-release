@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:12
 
 WORKDIR /root/app
 
