@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@ahmdigital/eslint-config": "4.0.45",
-    "jest": "27.0.1",
+    "jest": "27.0.6",
     "sinon": "11.1.1"
   },
   "renovate": {
