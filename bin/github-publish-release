@@ -1,67 +1,52 @@
 #!/usr/bin/env node
+import assert from 'assert';
+import { Octokit } from '@octokit/rest';
 
-const assert = require('assert');
-const GitHub = require('@octokit/rest');
+import repository from '../lib/repository';
 
-const repository = require('../lib/repository');
-
+// eslint-disable-next-line import/no-dynamic-require
 const pkg = require(`${process.cwd()}/package.json`);
 
-const checkErr = err => {
-  if (err) {
-    console.error(err.toJSON());
-    process.exit(1);
-  }
-};
-
-const github = new GitHub();
+const github = new Octokit();
 assert(process.env.GITHUB_OAUTH_TOKEN, 'GITHUB_OAUTH_TOKEN env variable should contain your personal access token');
-github.authenticate({ type: 'oauth', token: process.env.GITHUB_OAUTH_TOKEN });
+github.auth({ token: process.env.GITHUB_OAUTH_TOKEN, type: 'oauth' });
 
 const { user: owner, repo } = repository(pkg);
 
-github.repos.getLatestRelease({ owner, repo }, (err, { data: latestRelease }) => {
-  if (err) {
-    if (err.code === 404) {
-      latestRelease = { name: 'unknown', created_at: new Date('1970-01-01') };
-    } else {
-      checkErr(err);
-    }
+async function main() {
+  const latestRelease = await github.repos.getLatestRelease({ owner, repo });
+  if (latestRelease.status > 200) {
+    throw new Error(`status: ${latestRelease.status}, error details: ${latestRelease.data}`);
   }
 
-  console.log('Latest release: %s', latestRelease.name);
+  const { name: latestReleaseName, published_at: publishedAt } = latestRelease.data;
+  // eslint-disable-next-line no-console
+  console.log(`Latest release: ${latestReleaseName}`);
 
-  github.pullRequests.getAll(
-    { owner, repo, state: 'closed', sort: 'updated', direction: 'desc' },
-    (err, { data: prs }) => {
-      checkErr(err);
+  const prs = await github.pulls.list({ direction: 'desc', owner, repo, sort: 'updated', state: 'closed' });
+  // eslint-disable-next-line lodash/prefer-lodash-method
+  const body = prs.data
+    .filter((item) => item.merged_at > publishedAt)
+    .sort((foo, bar) => bar.title.localeCompare(foo.title))
+    .map((item) => `- ${item.title} #${item.number} (by @${item.user.login})`)
+    .join('\n');
+  const name = `v${pkg.version}`;
 
-      const name = `v${pkg.version}`;
-      const body = prs
-        .filter(item => item.merged_at > latestRelease.published_at)
-        .sort((a, b) => b.title.localeCompare(a.title))
-        .map(item => `- ${item.title} #${item.number} (by @${item.user.login})`)
-        .join('\n');
+  // eslint-disable-next-line no-console
+  console.log(`Publishing release: ${name}`);
+  // eslint-disable-next-line no-console
+  console.log(body);
 
-      console.log('Publishing release: %s', name);
-      console.log(body);
+  await github.repos.createRelease({
+    body,
+    draft: false,
+    name,
+    owner,
+    prerelease: false,
+    repo,
+    tag_name: name,
+    target_commitish: 'master',
+  });
+}
 
-      github.repos.createRelease(
-        {
-          owner,
-          repo,
-          tag_name: name,
-          target_commitish: 'master',
-          name,
-          body,
-          draft: false,
-          prerelease: false,
-        },
-        err => {
-          checkErr(err);
-          process.exit(0);
-        },
-      );
-    },
-  );
-});
+main();
