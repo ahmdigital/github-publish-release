@@ -24,6 +24,9 @@ async function main() {
   console.log(`Latest release: ${latestReleaseName}`);
 
   const prs = await github.pulls.list({ direction: 'desc', owner, repo, sort: 'updated', state: 'closed' });
+  if (prs.status > 200) {
+    throw new Error(`status: ${prs.status}, error details: ${prs.data}`);
+  }
   // eslint-disable-next-line lodash/prefer-lodash-method
   const body = prs.data
     .filter((item) => item.merged_at > publishedAt)
@@ -37,16 +40,20 @@ async function main() {
   // eslint-disable-next-line no-console
   console.log(body);
 
-  await github.repos.createRelease({
-    body,
-    draft: false,
-    name,
-    owner,
-    prerelease: false,
-    repo,
-    tag_name: name,
-    target_commitish: 'master',
-  });
+  try {
+    await github.repos.createRelease({
+      body,
+      draft: false,
+      name,
+      owner,
+      prerelease: false,
+      repo,
+      tag_name: name,
+      target_commitish: 'master',
+    });
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 main();
