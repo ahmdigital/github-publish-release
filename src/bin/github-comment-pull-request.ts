@@ -32,6 +32,8 @@ export async function main(argv: string[]) {
     owner,
     repo,
   });
+
+  console.log('done');
 }
 
 if (require.main === module) {

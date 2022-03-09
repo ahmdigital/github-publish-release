@@ -12,15 +12,15 @@ import { main as getPullRequest } from './github-get-pull-request';
 
 
 async function main(argv: string[]) {
-  console.log(`COMMIT: ${argv[0]}`);
-  const targetPR = await getPullRequest([argv[0]]);
+  console.log(`COMMIT: ${argv[1]}`);
+  const targetPR = await getPullRequest([argv[1]]);
   if (!targetPR) {
     throw new Error('Failed to create find the target PR');
   }
 
   // eslint-disable-next-line no-console
   console.log(`Commenting ${targetPR}`)
-  await commentPullRequest([targetPR.toString(), argv[1]]);
+  await commentPullRequest([targetPR.toString(), argv[2]]);
 }
 
 if (require.main === module) {

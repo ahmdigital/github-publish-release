@@ -8,11 +8,16 @@
     "skipLibCheck": true,
     "importHelpers": true,
     "outDir": "dist",
+    "sourceMap": true,
     // allow the tsc to include JS files while we migrate
     // to typescript.
     "allowJs": true
   },
   "include": [
-    "./src"
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }

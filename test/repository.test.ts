@@ -1,5 +1,4 @@
-const repository = require('../lib/repository');
-
+import repository from '../src/lib/repository';
 const expected = { repo: 'bar', user: 'foo' };
 
 it('should work when package.repository is defined and protocol is http(s)', () => {
