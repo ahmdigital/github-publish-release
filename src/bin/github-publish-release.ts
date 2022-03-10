@@ -1,10 +1,9 @@
-#!/usr/bin/env node
 import { Octokit } from '@octokit/rest';
-import repository from '../lib/repository';
 
-async function main(argv: string[]) {
-  // eslint-disable-next-line import/no-dynamic-require
-  const pkg = require(`${process.cwd()}/package.json`);
+import repository, { PackageJson } from '../lib/repository';
+
+async function main() {
+  const pkg = import(`${process.cwd()}/package.json`);
 
   const github = new Octokit();
   if (!process.env.GITHUB_OAUTH_TOKEN) {
@@ -13,7 +12,7 @@ async function main(argv: string[]) {
 
   github.auth({ token: process.env.GITHUB_OAUTH_TOKEN, type: 'oauth' });
 
-  const { user: owner, repo } = repository(pkg);
+  const { user: owner, repo } = repository(pkg as PackageJson);
 
   const response = await github.repos.getLatestRelease({ owner, repo });
   if (response.status !== 200) {
@@ -56,7 +55,8 @@ async function main(argv: string[]) {
 }
 
 if (require.main === module) {
-  main(process.argv).catch((error) => {
+  main().catch((error) => {
+    // eslint-disable-next-line no-console
     console.error(error);
     process.exit(1);
   });

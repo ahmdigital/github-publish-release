@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { getVersionType } from '../src/lib/commit-analyzer';
+import getVersionType from '../src/lib/commit-analyzer';
 import * as getLastTag from '../src/lib/get-last-tag';
 import * as getCommitHistory from '../src/lib/get-commit-history';
 
@@ -30,7 +30,7 @@ _.forOwn(
       const versionType = await getVersionType();
       expect(versionType).toEqual(resultType);
     });
-  }
+  },
 );
 
 _.forOwn(
@@ -44,5 +44,5 @@ _.forOwn(
       const promise = getVersionType();
       await expect(promise).rejects.toThrow(error);
     });
-  }
+  },
 );

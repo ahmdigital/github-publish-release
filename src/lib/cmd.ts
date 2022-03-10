@@ -1,11 +1,9 @@
 import _ from 'lodash';
 import { exec } from 'child_process';
 
-export type CmdCallback = (stdout: string) => any;
-
-export default function cmd(cmd: string): Promise<string> {
+export default function cmd(command: string): Promise<string> {
   return new Promise<string>((resolve, reject) => {
-    exec(cmd, (err, stdout) => {
+    exec(command, (err, stdout) => {
       if (err !== null) {
         reject(err);
       } else {

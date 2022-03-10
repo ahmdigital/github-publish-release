@@ -7,9 +7,8 @@ import { getLastTag } from './get-last-tag';
  * "major", "minor", "patch" as a second parameter or ERROR_NO_CHANGES by default as first parameter.
  * Looks for [major], [minor] in commit history.
  *
- * @param {Function} cb - Callback.
  */
-export async function getVersionType() {
+export default async function getVersionType() {
   const lastTag = await getLastTag();
 
   // Take the whole log when no tags found
@@ -21,12 +20,12 @@ export async function getVersionType() {
   }
 
   // find the first item from the commit history matching the release type
-  const versionType = _.find(['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'], (item) => {
-    return commitHistory.includes(`[${item}]`);
-  });
+  const versionType = _.find(['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'], (item) =>
+    _.includes(commitHistory, `[${item}]`),
+  );
   if (!versionType) {
     throw new Error("Can't recognize new version");
   }
 
   return versionType;
-};
+}
