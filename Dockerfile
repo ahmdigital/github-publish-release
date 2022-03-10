@@ -7,6 +7,10 @@ COPY package.json package-lock.json ./
 RUN npm ci --quiet --no-optional && npm cache clean --force
 
 COPY .eslintrc ./
-COPY bin ./bin
+COPY src ./src
+COPY jest.config.js ./
+COPY tsconfig.json ./
 COPY test ./test
-COPY lib ./lib
+
+COPY .git ./.git
+
