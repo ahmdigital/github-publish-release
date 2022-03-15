@@ -39,3 +39,6 @@ jspm_packages
 *.decrypted
 codeship_deploy_key*
 codeship.env
+
+# compiled folders
+dist

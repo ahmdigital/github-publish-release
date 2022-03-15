@@ -1,6 +1,32 @@
 {
   "extends": "@ahmdigital",
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts"]
+      }
+    }
+  },
   "rules": {
-    "sort-keys": "error"
+    "import/order": "off",
+    "import/extensions": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          "**/styles.sass"
+        ]
+      }
+    ],
+    "no-return-await": "off",
+    "sort-keys": [
+      "error",
+      "asc",
+      {
+        "caseSensitive": true,
+        "natural": false
+      }
+    ]
   }
 }

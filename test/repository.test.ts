@@ -1,4 +1,4 @@
-const repository = require('../lib/repository');
+import repository from '../src/lib/repository';
 
 const expected = { repo: 'bar', user: 'foo' };
 
