@@ -1,8 +1,8 @@
-import _ from 'lodash';
+import { isNaN } from 'lodash/fp';
 
 export default function number(value: string): number {
   const num = Number(value);
-  if (_.isNaN(num)) {
+  if (isNaN(num)) {
     throw new Error(`expected a number: "${value}"`);
   }
   return num;
