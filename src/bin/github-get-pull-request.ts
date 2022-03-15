@@ -19,7 +19,6 @@ export async function main(argv: string[]) {
   if (!process.env.GITHUB_OAUTH_TOKEN) {
     throw new Error('GITHUB_OAUTH_TOKEN env variable should contain your personal access token');
   }
-  github.auth({ token: process.env.GITHUB_OAUTH_TOKEN, type: 'oauth' });
 
   const { user: owner, repo } = repository(pkg);
 
