@@ -3,7 +3,7 @@ import { Octokit } from '@octokit/rest';
 import repository, { PackageJson } from '../lib/repository';
 
 async function main() {
-  const pkg = import(`${process.cwd()}/package.json`);
+  const pkg = import(`${process.cwd()}/package.json`) as PackageJson;
 
   const github = new Octokit();
   if (!process.env.GITHUB_OAUTH_TOKEN) {
@@ -12,7 +12,7 @@ async function main() {
 
   github.auth({ token: process.env.GITHUB_OAUTH_TOKEN, type: 'oauth' });
 
-  const { user: owner, repo } = repository(pkg as PackageJson);
+  const { user: owner, repo } = repository(pkg);
 
   const response = await github.repos.getLatestRelease({ owner, repo });
   if (response.status !== 200) {

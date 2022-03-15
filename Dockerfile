@@ -9,5 +9,3 @@ RUN npm ci --quiet --no-optional && npm cache clean --force
 COPY .eslintrc jest.config.js tsconfig.json ./
 COPY src ./src
 COPY test ./test
-COPY .git ./.git
-

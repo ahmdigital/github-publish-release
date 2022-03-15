@@ -6,7 +6,7 @@ import number from '../lib/parsing';
 import repository, { PackageJson } from '../lib/repository';
 
 export async function main(argv: string[]) {
-  const pkg = import(`${process.cwd()}/package.json`);
+  const pkg = import(`${process.cwd()}/package.json`) as PackageJson;
 
   if (process.argv.length < 4) {
     throw new Error('usage: npm run github-comment-pull-request <pull-request-number> <message>');
@@ -24,7 +24,7 @@ export async function main(argv: string[]) {
 
   github.auth({ token: process.env.GITHUB_OAUTH_TOKEN, type: 'oauth' });
 
-  const { user: owner, repo } = repository(pkg as PackageJson);
+  const { user: owner, repo } = repository(pkg);
 
   await github.pulls.createReview({
     body: COMMENT_BODY,

@@ -5,6 +5,7 @@ export interface PackageJson {
   repository?: {
     url?: string;
   };
+  version?: string;
 }
 
 export default function repository(pkg: PackageJson) {
