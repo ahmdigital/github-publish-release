@@ -6,7 +6,8 @@ import repository, { PackageJson } from '../lib/repository';
 
 // eslint-disable-next-line no-unused-vars
 export async function main(argv: string[]) {
-  const pkg = import(`${process.cwd()}/package.json`) as PackageJson;
+  // eslint-disable-next-line
+  const pkg = require(`${process.cwd()}/package.json`) as PackageJson;
 
   if (process.argv.length < 3 || process.argv[2].length < 32) {
     throw new Error('no commit message');

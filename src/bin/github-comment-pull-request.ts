@@ -6,7 +6,8 @@ import number from '../lib/parsing';
 import repository, { PackageJson } from '../lib/repository';
 
 export async function main(argv: string[]) {
-  const pkg = import(`${process.cwd()}/package.json`) as PackageJson;
+  // eslint-disable-next-line
+  const pkg = require(`${process.cwd()}/package.json`) as PackageJson;
 
   if (process.argv.length < 4) {
     throw new Error('usage: npm run github-comment-pull-request <pull-request-number> <message>');

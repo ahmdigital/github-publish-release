@@ -3,7 +3,8 @@ import { Octokit } from '@octokit/rest';
 import repository, { PackageJson } from '../lib/repository';
 
 async function main() {
-  const pkg = import(`${process.cwd()}/package.json`) as PackageJson;
+  // eslint-disable-next-line
+  const pkg = require(`${process.cwd()}/package.json`) as PackageJson;
 
   const github = new Octokit();
   if (!process.env.GITHUB_OAUTH_TOKEN) {
