@@ -6,12 +6,10 @@ async function main() {
   // eslint-disable-next-line
   const pkg = require(`${process.cwd()}/package.json`) as PackageJson;
 
-  const github = new Octokit();
+  const github = new Octokit({ auth: process.env.GITHUB_OAUTH_TOKEN });
   if (!process.env.GITHUB_OAUTH_TOKEN) {
     throw new Error('GITHUB_OAUTH_TOKEN env variable should contain your personal access token');
   }
-
-  github.auth({ token: process.env.GITHUB_OAUTH_TOKEN, type: 'oauth' });
 
   const { user: owner, repo } = repository(pkg);
 

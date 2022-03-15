@@ -17,7 +17,7 @@ export async function main(argv: string[]) {
 
   const COMMENT_BODY = argv[3];
 
-  const github = new Octokit();
+  const github = new Octokit({ auth: process.env.GITHUB_OAUTH_TOKEN });
 
   if (!process.env.GITHUB_OAUTH_TOKEN) {
     throw new Error('GITHUB_OAUTH_TOKEN env variable should contain your personal access token');
