@@ -6,7 +6,8 @@ import repository, { PackageJson } from '../lib/repository';
 
 // eslint-disable-next-line no-unused-vars
 export async function main(argv: string[]) {
-  const pkg = import(`${process.cwd()}/package.json`) as PackageJson;
+  // eslint-disable-next-line
+  const pkg = require(`${process.cwd()}/package.json`) as PackageJson;
 
   if (process.argv.length < 3 || process.argv[2].length < 32) {
     throw new Error('no commit message');
@@ -14,11 +15,10 @@ export async function main(argv: string[]) {
 
   const COMMIT_SHA = process.argv[2];
 
-  const github = new Octokit();
+  const github = new Octokit({ auth: process.env.GITHUB_OAUTH_TOKEN });
   if (!process.env.GITHUB_OAUTH_TOKEN) {
     throw new Error('GITHUB_OAUTH_TOKEN env variable should contain your personal access token');
   }
-  github.auth({ token: process.env.GITHUB_OAUTH_TOKEN, type: 'oauth' });
 
   const { user: owner, repo } = repository(pkg);
 
