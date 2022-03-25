@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env node
 import { main as commentPullRequest } from './github-comment-pull-request';
 import { main as getPullRequest } from './github-get-pull-request';
 
