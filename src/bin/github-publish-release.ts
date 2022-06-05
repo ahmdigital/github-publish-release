@@ -17,6 +17,11 @@ async function main() {
 
   const response = await github.repos.getLatestRelease({ owner, repo });
   if (response.status !== 200) {
+    if (response.status === 404) {
+      throw new Error(
+        `status:${response.status}, no latest release of ${repo} has been found, please do a manual release on github.`,
+      );
+    }
     throw new Error(`status: ${response.status}, error details: ${response.data}`);
   }
 
