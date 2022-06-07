@@ -11,6 +11,7 @@
   "rules": {
     "import/order": "off",
     "import/extensions": "off",
+    "lodash/import-scope": "off",
     "no-restricted-imports": [
       "error",
       {

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* eslint-disable import/prefer-default-export */
-import _ from 'lodash';
+import { find } from 'lodash/fp';
 import { Octokit } from '@octokit/rest';
 import repository, { PackageJson } from '../lib/repository';
 
@@ -28,7 +28,7 @@ export async function main(argv: string[]) {
     throw new Error(`cannot get pr for ${COMMIT_SHA}`);
   }
 
-  const foundPR = _.find(prs.data, { head: { sha: COMMIT_SHA } });
+  const foundPR = find({ head: { sha: COMMIT_SHA } }, prs.data);
 
   if (!foundPR) {
     throw new Error('no results');

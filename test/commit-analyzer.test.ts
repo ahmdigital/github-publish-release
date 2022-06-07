@@ -1,4 +1,5 @@
-import _ from 'lodash';
+// eslint-disable-next-line lodash-fp/use-fp
+import { forOwn } from 'lodash';
 import getVersionType from '../src/lib/commit-analyzer';
 import * as getLastTag from '../src/lib/get-last-tag';
 import * as getCommitHistory from '../src/lib/get-commit-history';
@@ -18,7 +19,7 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 
-_.forOwn(
+forOwn(
   {
     major: 'major',
     minor: 'minor',
@@ -33,7 +34,7 @@ _.forOwn(
   },
 );
 
-_.forOwn(
+forOwn(
   {
     '': new Error("Can't recognize new version"),
     other: new Error("Can't recognize new version"),

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { find, includes } from 'lodash/fp';
 import { getCommitHistory } from './get-commit-history';
 import { getLastTag } from './get-last-tag';
 
@@ -20,8 +20,9 @@ export default async function getVersionType() {
   }
 
   // find the first item from the commit history matching the release type
-  const versionType = _.find(['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'], (item) =>
-    _.includes(commitHistory, `[${item}]`),
+  const versionType = find(
+    (item) => includes(`[${item}]`, commitHistory),
+    ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'],
   );
   if (!versionType) {
     throw new Error("Can't recognize new version");

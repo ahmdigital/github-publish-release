@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import got from 'got';
 
 import { Octokit } from '@octokit/rest';
+import got from 'got/dist/source';
 
 import repository, { PackageJson } from '../lib/repository';
 

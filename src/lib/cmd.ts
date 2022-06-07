@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { split } from 'lodash/fp';
 import { exec } from 'child_process';
 
 export default function cmd(command: string): Promise<string> {
@@ -7,7 +7,7 @@ export default function cmd(command: string): Promise<string> {
       if (err !== null) {
         reject(err);
       } else {
-        resolve(_.split(stdout, '\n').join(''));
+        resolve(split('\n', stdout).join(''));
       }
     });
   });
