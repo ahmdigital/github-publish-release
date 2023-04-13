@@ -35,8 +35,10 @@ _.forOwn(
 
 _.forOwn(
   {
-    '': new Error("Can't recognize new version"),
-    other: new Error("Can't recognize new version"),
+    '': new Error("Can't recognise the release type! Please make sure the repo follows the commit message standard."),
+    other: new Error(
+      "Can't recognise the release type! Please make sure the repo follows the commit message standard.",
+    ),
   },
   (error, commitType) => {
     it(`should throw an error for ${commitType}`, async () => {
