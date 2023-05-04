@@ -10,6 +10,9 @@
     "github-publish-release": "./dist/bin/github-publish-release.js",
     "analyze-commits": "./dist/bin/analyze-commits.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "lint": "eslint --ext .ts src",
     "build": "tsc",
@@ -48,6 +51,6 @@
     ]
   },
   "engines": {
-    "node": "^16"
+    "node": ">=14.0.0"
   }
 }
