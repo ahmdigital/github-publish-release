@@ -22,8 +22,9 @@ export default async function getVersionType() {
   // find the first item from the commit history matching the release type
   const versionType = find(
     (item) => includes(`[${item}]`, commitHistory),
-    ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease', 'dev']
+    ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease', 'dev'],
   );
+
   if (!versionType) {
     throw new Error("Can't recognise the release type! Please make sure the repo follows the commit message standard.");
   }
